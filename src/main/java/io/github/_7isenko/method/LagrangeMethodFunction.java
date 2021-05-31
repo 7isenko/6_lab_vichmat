@@ -30,5 +30,4 @@ public class LagrangeMethodFunction implements Function {
         }
         return y;
     }
-
 }

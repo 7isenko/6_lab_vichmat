@@ -19,7 +19,7 @@ public class Main {
     private static final GraphBuilder graphBuilder = new GraphBuilder();
 
     public static void main(String[] args) {
-        //  blockErrorStream();
+        blockErrorStream();
 
         System.out.print("Введите степень полинома Чебышева: ");
         ChebyshevFunction chebyshevFunction = new ChebyshevFunction(inputReader.readIntFromConsole());
