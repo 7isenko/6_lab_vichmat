@@ -19,6 +19,7 @@ public class GraphBuilder {
     private SwingWrapper<XYChart> currentWrapper;
     private double minX = 0;
     private double maxX = 0;
+    private static final double DELTA = 0.1;
     private final ArrayList<Function> savedFunctions = new ArrayList<>();
     private final ArrayList<Color> savedColors = new ArrayList<>();
 
@@ -41,12 +42,12 @@ public class GraphBuilder {
 
         if (point.x > maxX) {
             double xVal = maxX;
-            maxX = point.x + 0.5;
+            maxX = point.x + DELTA;
             repaintFunctions(xVal, maxX, chart);
         }
         if (point.x < minX) {
             double xVal = minX;
-            minX = point.x - 0.5;
+            minX = point.x - DELTA;
             repaintFunctions(minX, xVal, chart);
         }
 
@@ -80,8 +81,8 @@ public class GraphBuilder {
         ArrayList<Double> xp = split.get(0);
 
         if (changeMaxMin) {
-            minX = Collections.min(xp) - 0.5;
-            maxX = Collections.max(xp) + 0.5;
+            minX = Collections.min(xp) - DELTA;
+            maxX = Collections.max(xp) + DELTA;
         }
 
         createGraph(chart, name, function, minX, maxX, XYSeries.XYSeriesRenderStyle.Line, color);

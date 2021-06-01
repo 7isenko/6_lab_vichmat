@@ -22,19 +22,28 @@ public class Main {
         blockErrorStream();
 
         System.out.print("Введите степень полинома Чебышева: ");
-        ChebyshevFunction chebyshevFunction = new ChebyshevFunction(inputReader.readIntFromConsole());
-
-        System.out.print("Введите левую границу: ");
-        double xl = inputReader.readDoubleFromConsole();
-        System.out.print("Введите правую границу: ");
-        double xr = inputReader.readDoubleFromConsole();
-        System.out.print("Введите шаг: ");
-        double h = inputReader.readDoubleFromConsole();
-
+        int pow = inputReader.readIntFromConsole();
+        ChebyshevFunction chebyshevFunction = new ChebyshevFunction(pow);
         ArrayList<Point> points = new ArrayList<>();
 
-        for (double i = xl; i <= xr; i += h) {
-            points.add(new Point(i, chebyshevFunction.solve(i)));
+        System.out.println("Вы хотите интерполировать корни (y) или значения на интервале с шагом (n)?");
+        if (inputReader.parseYesOrNo()){
+            for (int i = 0; i < pow*2; i++) {
+                double x = Math.cos((2*(i+1) - 1)*Math.PI/(2*pow*2));
+                double y = chebyshevFunction.solve(x);
+                points.add(new Point(x, y));
+            }
+        } else {
+            System.out.print("Введите левую границу: ");
+            double xl = inputReader.readDoubleFromConsole();
+            System.out.print("Введите правую границу: ");
+            double xr = inputReader.readDoubleFromConsole();
+            System.out.print("Введите шаг: ");
+            double h = inputReader.readDoubleFromConsole();
+
+            for (double i = xl; i <= xr; i += h) {
+                points.add(new Point(i, chebyshevFunction.solve(i)));
+            }
         }
 
         LagrangeMethodFunction lagrangeMethodFunction = new LagrangeMethodFunction(points);
